@@ -1,4 +1,5 @@
 import os
+import cv2
 import json
 import shutil
 import argparse
@@ -11,6 +12,9 @@ def move_png(data, png_folder, output_folder):
 
   for i in data["images"]:
     png_file = os.path.join(png_folder, i["file_name"])
+    img = cv2.imread(png_file)
+    img = cv2.resize(img, (640, 640))
+    cv2.imwrite(png_file, img)
     png_destination = os.path.join(output_folder, i["file_name"])
     # move the png_file
     try:
